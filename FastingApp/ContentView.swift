@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var viewModel = FastingViewModel()
+    
+    
     var body: some View {
         NavigationView {
             TabView {
-                FastingView()
+                FastingView(viewModel: viewModel)
                     .tabItem() {
                         Image(systemName: "hourglass")
                         Text("Fast")

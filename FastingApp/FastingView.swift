@@ -8,13 +8,60 @@
 import SwiftUI
 
 struct FastingView: View {
+    @ObservedObject var viewModel: FastingViewModel
+    
+    
+    
     var body: some View {
-        Text("Fasting")
+        NavigationView {
+            VStack {
+                Picker("Select Duration", selection: $viewModel.selectedDuration) {
+                    Text("8 Hours").tag(FastingDuration.hours8)
+                    Text("12 Hours").tag(FastingDuration.hours12)
+                    Text("24 Hours").tag(FastingDuration.hours24)
+                    Text("36 Hours").tag(FastingDuration.hours36)
+                    Text("48 Hours").tag(FastingDuration.hours48)
+                }
+                .pickerStyle(.inline)
+                
+                Button("Start Fasting") {
+                    viewModel.startFasting()
+                }
+                
+                Text("\(viewModel.elapsedTimeFormatted)")
+                
+                List {
+                    ForEach(viewModel.fasts) { fast in
+                        VStack {
+                            Text("\(fast.startDate) to \(fast.endDate)")
+                            Text("Elapsed Time: \(viewModel.elapsedTimeFormatted)")
+                        }
+                    }
+                    .onDelete { index in
+                        viewModel.deleteFasting(at: index)
+                    }
+                }
+            }
+            .navigationBarTitle("Fasting Tracker")
+        }
     }
 }
+    
+    extension FastingViewModel {
+        var elapsedTimeFormatted: String {
+            let formatter = DateComponentsFormatter()
+            formatter.allowedUnits = [.hour, .minute, .second]
+            formatter.unitsStyle = .abbreviated
+            
+            return formatter.string(from: elapsedTime) ?? "00:00:00"
+        }
+    }
 
-struct FastingView_Previews: PreviewProvider {
-    static var previews: some View {
-        FastingView()
-    }
-}
+
+
+
+//struct FastingView_Previews: PreviewProvider {
+  //  static var previews: some View {
+    //    FastingView()
+    //}//
+//}
