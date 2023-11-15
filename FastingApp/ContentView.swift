@@ -10,14 +10,24 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         NavigationView {
-            VStack {
-                Color.white
-                    .ignoresSafeArea()
+            TabView {
+                FastingView()
+                    .tabItem() {
+                        Image(systemName: "hourglass")
+                        Text("Fast")
+                    }
+                WeightView()
+                    .tabItem() {
+                        Image(systemName:"list.clipboard" )
+                    Text("Record Weight")
+                    }
+                DataView()
+                    .tabItem() {
+                        Image(systemName: "chart.line.downtrend.xyaxis")
+                        Text("Progress")
+                    }
                 
-                NavigationLink(destination: WeightView()) {
-                    Text("Record Your Weight")
-                }
-                
+               
                 
             }
             .navigationBarTitle("Fasting App")

@@ -16,6 +16,8 @@
 		842ADDD92B02F5F000C0F796 /* WeightViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ADDD82B02F5F000C0F796 /* WeightViewModel.swift */; };
 		842ADDDB2B02F7E300C0F796 /* WeightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ADDDA2B02F7E300C0F796 /* WeightView.swift */; };
 		842ADDDD2B02FCA500C0F796 /* WeightModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ADDDC2B02FCA500C0F796 /* WeightModel.swift */; };
+		842ADDDF2B053B6000C0F796 /* FastingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ADDDE2B053B6000C0F796 /* FastingView.swift */; };
+		842ADDE12B053B8500C0F796 /* DataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ADDE02B053B8500C0F796 /* DataView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		842ADDD82B02F5F000C0F796 /* WeightViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightViewModel.swift; sourceTree = "<group>"; };
 		842ADDDA2B02F7E300C0F796 /* WeightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightView.swift; sourceTree = "<group>"; };
 		842ADDDC2B02FCA500C0F796 /* WeightModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightModel.swift; sourceTree = "<group>"; };
+		842ADDDE2B053B6000C0F796 /* FastingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastingView.swift; sourceTree = "<group>"; };
+		842ADDE02B053B8500C0F796 /* DataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,8 @@
 				842ADDD42B002E7D00C0F796 /* FastingModel.swift */,
 				842ADDD62B002E8B00C0F796 /* FastingViewModel.swift */,
 				842ADDC72B002E4300C0F796 /* ContentView.swift */,
+				842ADDDE2B053B6000C0F796 /* FastingView.swift */,
+				842ADDE02B053B8500C0F796 /* DataView.swift */,
 				842ADDDA2B02F7E300C0F796 /* WeightView.swift */,
 				842ADDD82B02F5F000C0F796 /* WeightViewModel.swift */,
 				842ADDDC2B02FCA500C0F796 /* WeightModel.swift */,
@@ -154,9 +160,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				842ADDE12B053B8500C0F796 /* DataView.swift in Sources */,
 				842ADDDD2B02FCA500C0F796 /* WeightModel.swift in Sources */,
 				842ADDDB2B02F7E300C0F796 /* WeightView.swift in Sources */,
 				842ADDD92B02F5F000C0F796 /* WeightViewModel.swift in Sources */,
+				842ADDDF2B053B6000C0F796 /* FastingView.swift in Sources */,
 				842ADDD52B002E7D00C0F796 /* FastingModel.swift in Sources */,
 				842ADDD72B002E8B00C0F796 /* FastingViewModel.swift in Sources */,
 				842ADDC82B002E4300C0F796 /* ContentView.swift in Sources */,
