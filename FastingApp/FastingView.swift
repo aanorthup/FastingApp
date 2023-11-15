@@ -16,6 +16,7 @@ struct FastingView: View {
         NavigationView {
             VStack {
                 Picker("Select Duration", selection: $viewModel.selectedDuration) {
+                    Text("15 Seconds").tag(FastingDuration.hours1)
                     Text("8 Hours").tag(FastingDuration.hours8)
                     Text("12 Hours").tag(FastingDuration.hours12)
                     Text("24 Hours").tag(FastingDuration.hours24)
@@ -29,14 +30,16 @@ struct FastingView: View {
                 }
                 
                 Text("\(viewModel.elapsedTimeFormatted)")
+                    .padding()
+                    .onReceive(viewModel.$elapsedTime) { newElapstedTime in
+                    }
+                
                 
                 List {
-                    ForEach(viewModel.fasts) { fast in
-                        VStack {
-                            Text("\(fast.startDate) to \(fast.endDate)")
-                            Text("Elapsed Time: \(viewModel.elapsedTimeFormatted)")
-                        }
+                    ForEach(viewModel.fasts) { fastingPeriod in
+                        Text("\(fastingPeriod.startDate) - \(fastingPeriod.endDate)")
                     }
+                    
                     .onDelete { index in
                         viewModel.deleteFasting(at: index)
                     }
@@ -46,6 +49,11 @@ struct FastingView: View {
         }
     }
 }
+            
+   
+        
+    
+
     
     extension FastingViewModel {
         var elapsedTimeFormatted: String {

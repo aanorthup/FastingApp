@@ -26,6 +26,8 @@ class FastingViewModel: ObservableObject {
             self?.updateElapsedTime()
         }
         
+        objectWillChange.send()
+        
     }
     
     private func updateElapsedTime() {

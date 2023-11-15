@@ -8,6 +8,7 @@
 import Foundation
 
 enum FastingDuration: TimeInterval {
+    case hours1
     case hours8
     case hours12
     case hours24
@@ -16,6 +17,7 @@ enum FastingDuration: TimeInterval {
     
     var duration: TimeInterval {
         switch self {
+        case .hours1: return 15
         case .hours8: return 8 * 60 * 60
         case .hours12: return 12 * 60 * 60
         case .hours24: return 24 * 60 * 60
