@@ -66,8 +66,7 @@ struct FastingView: View {
                             
                             Text(viewModel.startTime, style: .timer)
                             
-                            Text(viewModel.endTime, style: .timer)
-                            
+                                                        
                             
                         }
                         
@@ -79,7 +78,8 @@ struct FastingView: View {
                 .onAppear {
                     progress = 1
                     
-                    
+                }
+                
                     HStack(spacing: 40) {
                         Text("Start")
                         
@@ -106,7 +106,7 @@ struct FastingView: View {
                 }
             }
         }
-    }
+    
 }
 
    
