@@ -11,7 +11,6 @@ import Foundation
 enum FastingState {
     case notStarted
     case fasting
-    case feeding
 }
 
 class FastingViewModel: ObservableObject {
@@ -39,6 +38,8 @@ class FastingViewModel: ObservableObject {
     }
     @Published var endTime: Date
     @Published var extraTime: Date?
+    @Published var elapsedTime: Double = 0.0
+    @Published var progress: Double = 0.0
     
     var fastingTime: Double {
         return fastingDuration.duration
@@ -65,28 +66,30 @@ class FastingViewModel: ObservableObject {
             endTime = endTime.addingTimeInterval(additionalTime)
             
             extraTime = nil
+            elapsedTime = 0.0
         } else {
             startTime = Date()
         }
     
-        fastingState = fastingState == .fasting ? .feeding : .fasting
+        fastingState = fastingState == .fasting ? .notStarted : .fasting
     }
     
     func track() {
+        guard fastingState != .notStarted else { return }
         if endTime >= Date() {
             fastDone = false
         } else {
-            if fastDone {
-                extraTime = Date()
-            } else {
+            fastDone = true
                 
-                fastDone = true
-                
-                let completedFast = FastingModel(startDate: startTime, duration: fastingDuration, endDate: endTime)
+            let completedFast = FastingModel(startDate: startTime, duration: fastingDuration, endDate: endTime)
                 completedFasts.append(completedFast)
             }
-        }
+        
+        elapsedTime += 1
+        progress = (elapsedTime / fastingTime * 100).rounded() / 100
+
     }
+    
     
     func calculateExtraTime() -> TimeInterval {
         guard let startTime = extraTime else {
