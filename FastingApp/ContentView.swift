@@ -24,6 +24,11 @@ struct ContentView: View {
                         Image(systemName:"list.clipboard" )
                     Text("Record Weight")
                     }
+                CompletedFastsView(viewModel: viewModel)
+                    .tabItem() {
+                        Image(systemName: "checkmark.seal.fill")
+                        Text("Completed Fasts")
+                    }
                 DataView()
                     .tabItem() {
                         Image(systemName: "chart.line.downtrend.xyaxis")

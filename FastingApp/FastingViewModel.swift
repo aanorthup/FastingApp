@@ -15,6 +15,7 @@ enum FastingState {
 }
 
 class FastingViewModel: ObservableObject {
+    @Published var completedFasts: [FastingModel] = []
     @Published var fastingState: FastingState = .notStarted
     @Published var selectedDuration: FastingDuration? {
         didSet {
@@ -37,13 +38,14 @@ class FastingViewModel: ObservableObject {
         
     }
     @Published var endTime: Date
+    @Published var extraTime: Date?
     
     var fastingTime: Double {
-        return fastingDuration.duration * 60 * 60
+        return fastingDuration.duration
     }
     
     var feedingTime: Double {
-        return (24 - fastingDuration.duration) * 60 * 60
+        return (24 - fastingDuration.duration)
     }
     
     init() {
@@ -57,7 +59,16 @@ class FastingViewModel: ObservableObject {
     }
     
     func toggleFasting() {
-        startTime = Date()
+        if fastDone {
+            let additionalTime = calculateExtraTime()
+            
+            endTime = endTime.addingTimeInterval(additionalTime)
+            
+            extraTime = nil
+        } else {
+            startTime = Date()
+        }
+    
         fastingState = fastingState == .fasting ? .feeding : .fasting
     }
     
@@ -65,8 +76,23 @@ class FastingViewModel: ObservableObject {
         if endTime >= Date() {
             fastDone = false
         } else {
-            fastDone = true
+            if fastDone {
+                extraTime = Date()
+            } else {
+                
+                fastDone = true
+                
+                let completedFast = FastingModel(startDate: startTime, duration: fastingDuration, endDate: endTime)
+                completedFasts.append(completedFast)
+            }
         }
+    }
+    
+    func calculateExtraTime() -> TimeInterval {
+        guard let startTime = extraTime else {
+            return 0
+        }
+        return Date().timeIntervalSince(startTime)
     }
     
     func updateTimer() {
