@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum FastingDuration: String {
+enum FastingDuration: String, CaseIterable {
     case hours1 = "15 Minutes"
     case hours8 = "8 Hours"
     case hours12 = "12 Hours"

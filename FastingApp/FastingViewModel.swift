@@ -55,6 +55,7 @@ class FastingViewModel: ObservableObject {
         let components = DateComponents(hour: 20)
         let scheduledTime = calendar.nextDate(after: .now, matching: components, matchingPolicy: .nextTime)!
         
+        
         startTime = scheduledTime
         endTime = scheduledTime.addingTimeInterval(FastingDuration.hours1.duration)
     }
@@ -100,7 +101,7 @@ class FastingViewModel: ObservableObject {
     
     func updateTimer() {
         if fastingState == .fasting {
-            endTime = startTime.addingTimeInterval(fastingTime)
+            endTime = startTime.addingTimeInterval(fastingDuration.duration)
         } else {
             endTime = startTime.addingTimeInterval(feedingTime)
         }

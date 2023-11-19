@@ -29,12 +29,14 @@ struct FastingView: View {
                 
                 Text(title)
                 
-                Text(viewModel.fastingDuration.rawValue)
-                    .fontWeight(.semibold)
-                    .padding(.horizontal, 24)
-                    .padding(.vertical, 8)
-                    .background(.thinMaterial)
-                    .cornerRadius(20)
+                Picker("Select Fasting Duration", selection: $viewModel.selectedDuration) {
+                    ForEach(FastingDuration.allCases, id: \.self) { duration in
+                        Text(duration.rawValue).tag(duration)
+                    }
+                }
+                .padding(.horizontal, 24)
+                .padding(.vertical, 8)
+                    
                 
                 //MARK: Progress Ring
                 ZStack {
