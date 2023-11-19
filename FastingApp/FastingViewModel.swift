@@ -16,7 +16,14 @@ enum FastingState {
 
 class FastingViewModel: ObservableObject {
     @Published var fastingState: FastingState = .notStarted
-    @Published var selectedDuration: FastingDuration?
+    @Published var selectedDuration: FastingDuration? {
+        didSet {
+            if let selectedDuration = selectedDuration {
+                fastingDuration = selectedDuration
+                updateTimer()
+            }
+        }
+    }
     @Published var fastingDuration: FastingDuration = .hours1
     @Published var fastDone: Bool = false
     @Published var startTime: Date {
@@ -32,11 +39,11 @@ class FastingViewModel: ObservableObject {
     @Published var endTime: Date
     
     var fastingTime: Double {
-        return fastingDuration.duration
+        return fastingDuration.duration * 60 * 60
     }
     
     var feedingTime: Double {
-        return 24 - fastingDuration.duration
+        return (24 - fastingDuration.duration) * 60 * 60
     }
     
     init() {
@@ -59,6 +66,14 @@ class FastingViewModel: ObservableObject {
             fastDone = false
         } else {
             fastDone = true
+        }
+    }
+    
+    func updateTimer() {
+        if fastingState == .fasting {
+            endTime = startTime.addingTimeInterval(fastingTime)
+        } else {
+            endTime = startTime.addingTimeInterval(feedingTime)
         }
     }
     

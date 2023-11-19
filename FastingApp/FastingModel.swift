@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum FastingDuration: TimeInterval {
+enum FastingDuration: TimeInterval, CaseIterable {
     case hours1
     case hours8
     case hours12

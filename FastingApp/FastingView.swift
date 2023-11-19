@@ -39,6 +39,12 @@ struct FastingView: View {
                 
                 Text(viewModel.endTime, style: .timer)
                 
+                Picker("Fasting Duration", selection: $viewModel.selectedDuration) {
+                    ForEach(FastingDuration.allCases, id: \.self) { duration in
+                        Text("\(duration.rawValue) hours")
+                    }
+                }
+                
                 Button {
                     viewModel.toggleFasting()
                 } label: {
