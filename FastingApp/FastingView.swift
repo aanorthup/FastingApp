@@ -10,6 +10,10 @@ import SwiftUI
 struct FastingView: View {
     @StateObject var viewModel: FastingViewModel
     
+    let timer = Timer
+        .publish(every: 1, on: .main, in: .common)
+        .autoconnect()
+    
     var title: String {
         switch viewModel.fastingState {
         case .notStarted:
@@ -24,7 +28,16 @@ struct FastingView: View {
     var body: some View {
         NavigationView {
             VStack {
+                if !viewModel.fastDone {
+                    Text("Remaining Time: ")
+                } else {
+                    Text("Extra Time")
+                }
                 Text(title)
+                
+                Text(viewModel.startTime, style: .timer)
+                
+                Text(viewModel.endTime, style: .timer)
                 
                 Button {
                     viewModel.toggleFasting()
@@ -37,7 +50,10 @@ struct FastingView: View {
                         .cornerRadius(20)
                 
             }
-            
+                
+                .onReceive(timer) { _ in 
+                    viewModel.track()
+                }
             
             }
         }

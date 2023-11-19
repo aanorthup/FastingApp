@@ -18,9 +18,14 @@ class FastingViewModel: ObservableObject {
     @Published var fastingState: FastingState = .notStarted
     @Published var selectedDuration: FastingDuration?
     @Published var fastingDuration: FastingDuration = .hours1
+    @Published var fastDone: Bool = false
     @Published var startTime: Date {
         didSet {
-            
+            if fastingState == .fasting {
+                endTime = startTime.addingTimeInterval(fastingTime)
+            } else {
+                endTime = startTime.addingTimeInterval(feedingTime)
+            }
         }
         
     }
@@ -30,7 +35,7 @@ class FastingViewModel: ObservableObject {
         return fastingDuration.duration
     }
     
-    var feedingTme: Double {
+    var feedingTime: Double {
         return 24 - fastingDuration.duration
     }
     
@@ -47,6 +52,14 @@ class FastingViewModel: ObservableObject {
     func toggleFasting() {
         startTime = Date()
         fastingState = fastingState == .fasting ? .feeding : .fasting
+    }
+    
+    func track() {
+        if endTime >= Date() {
+            fastDone = false
+        } else {
+            fastDone = true
+        }
     }
     
     //var timer: Timer?
