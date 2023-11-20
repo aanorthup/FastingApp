@@ -18,6 +18,7 @@
 		842ADDDD2B02FCA500C0F796 /* WeightModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ADDDC2B02FCA500C0F796 /* WeightModel.swift */; };
 		842ADDDF2B053B6000C0F796 /* FastingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ADDDE2B053B6000C0F796 /* FastingView.swift */; };
 		8463735F2B0A4CE800DBACD8 /* CompletedFastsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463735E2B0A4CE800DBACD8 /* CompletedFastsView.swift */; };
+		846373642B0BA3B300DBACD8 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 846373632B0BA3B300DBACD8 /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		842ADDDE2B053B6000C0F796 /* FastingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastingView.swift; sourceTree = "<group>"; };
 		8463735E2B0A4CE800DBACD8 /* CompletedFastsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedFastsView.swift; sourceTree = "<group>"; };
 		846373622B0B0E6F00DBACD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		846373632B0BA3B300DBACD8 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 		842ADDC42B002E4300C0F796 /* FastingApp */ = {
 			isa = PBXGroup;
 			children = (
+				846373632B0BA3B300DBACD8 /* Launch Screen.storyboard */,
 				846373622B0B0E6F00DBACD8 /* Info.plist */,
 				842ADDC52B002E4300C0F796 /* FastingAppApp.swift */,
 				842ADDD42B002E7D00C0F796 /* FastingModel.swift */,
@@ -150,6 +153,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				846373642B0BA3B300DBACD8 /* Launch Screen.storyboard in Resources */,
 				842ADDCE2B002E4600C0F796 /* Preview Assets.xcassets in Resources */,
 				842ADDCA2B002E4600C0F796 /* Assets.xcassets in Resources */,
 			);
