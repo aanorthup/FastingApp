@@ -30,6 +30,7 @@ class FastingViewModel: ObservableObject {
         }
         
     }
+    @Published var isFastingComplete: Bool = false
     @Published var endTime: Date
     @Published var extraTime: Date?
     @Published var elapsedTime: Double = 0.0
@@ -39,9 +40,6 @@ class FastingViewModel: ObservableObject {
         return fastingDuration.duration
     }
     
-    var feedingTime: Double {
-        return (24 - fastingDuration.duration)
-    }
     
     init() {
         let calendar = Calendar.current
@@ -56,17 +54,20 @@ class FastingViewModel: ObservableObject {
     
     func toggleFasting() {
         if fastDone {
-            let additionalTime = calculateExtraTime()
+            //let additionalTime = calculateExtraTime()
             
-            endTime = endTime.addingTimeInterval(additionalTime)
+            //endTime = endTime.addingTimeInterval(additionalTime)
             
             extraTime = nil
             elapsedTime = 0.0
             progress = 0.0
+            isFastingComplete = true
+            
         } else {
             startTime = Date()
             elapsedTime = 0.0
             progress = 0.0
+            isFastingComplete = false
         }
     
         fastingState = fastingState == .fasting ? .notStarted : .fasting
@@ -80,9 +81,15 @@ class FastingViewModel: ObservableObject {
         } else if endTime < Date() {
             fastDone = true
             
-            let completedFast = FastingModel(startDate: startTime, duration: fastingDuration, endDate: endTime)
-            completedFasts.append(completedFast)
+            if !isFastingComplete {
+                let completedFast = FastingModel(startDate: startTime, duration: fastingDuration, endDate: endTime)
+                completedFasts.append(completedFast)
+                
+                isFastingComplete = true
             
+            }
+            
+
         }
         elapsedTime += 1
         progress = (elapsedTime / fastingTime * 100).rounded() / 100
@@ -102,7 +109,7 @@ class FastingViewModel: ObservableObject {
         if fastingState == .fasting {
             endTime = startTime.addingTimeInterval(fastingDuration.duration)
         } else {
-            endTime = startTime.addingTimeInterval(feedingTime)
+            endTime = startTime.addingTimeInterval(fastingDuration.duration)
         }
     }
     

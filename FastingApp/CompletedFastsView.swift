@@ -29,8 +29,9 @@ struct CompletedFastsView: View {
                     }
                 }
             }
-            VStack {
-                if !viewModel.completedFasts.isEmpty {
+                
+            Text("OUtside")
+            if !viewModel.completedFasts.isEmpty {
                     Chart{
                         ForEach(viewModel.completedFasts, id: \.id) { item in
                             BarMark(
@@ -45,7 +46,7 @@ struct CompletedFastsView: View {
             }
             .navigationTitle("Completed Fasts")
         }
-    }
+    
 }
 
 

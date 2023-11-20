@@ -62,7 +62,7 @@ struct FastingView: View {
                                 
                                 Text("Upcoming Fast")
                                 
-                                Text("\(viewModel.fastingDuration.duration.formatted())")
+                                Text("\(viewModel.fastingDuration.rawValue)")
                                     .font(.title)
                                     .fontWeight(.bold)
                             }

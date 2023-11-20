@@ -8,7 +8,8 @@
 import Foundation
 
 enum FastingDuration: String, CaseIterable {
-    case hours1 = "15 Minutes"
+    case hours1 = "15 Seconds"
+    case hours2 = "25 Seconds"
     case hours8 = "8 Hours"
     case hours12 = "12 Hours"
     case hours16  = "16 Hours"
@@ -18,10 +19,11 @@ enum FastingDuration: String, CaseIterable {
     var duration: Double {
         switch self {
         case .hours1: return 15
-        case .hours8: return 8
-        case .hours12: return 12
-        case .hours16: return 16
-        case .hours24: return 24
+        case .hours2: return 25
+        case .hours8: return 8 * 60 * 60
+        case .hours12: return 12 * 60 * 60
+        case .hours16: return 16 * 60 * 60
+        case .hours24: return 24 * 60 * 60
         }
     }
 }
