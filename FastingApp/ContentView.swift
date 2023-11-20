@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var viewModel = FastingViewModel()
-    @ObservedObject var weightViewModel = WeightViewModel()
+    @StateObject var weightViewModel = WeightViewModel()
         
     
     var body: some View {

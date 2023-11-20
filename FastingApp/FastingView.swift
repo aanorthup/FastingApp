@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FastingView: View {
-    @ObservedObject var viewModel: FastingViewModel
+    @StateObject var viewModel: FastingViewModel
     
     let timer = Timer
         .publish(every: 1, on: .main, in: .common)

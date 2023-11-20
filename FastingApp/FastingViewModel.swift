@@ -58,11 +58,11 @@ class FastingViewModel: ObservableObject {
     
     func toggleFasting() {
         if fastDone {
-            let additionalTime = calculateExtraTime()
+           // let additionalTime = calculateExtraTime()
             
-            endTime = endTime.addingTimeInterval(additionalTime)
+            //endTime = endTime.addingTimeInterval(additionalTime)
             
-            extraTime = nil
+           // extraTime = nil
             isFastingComplete = true
             
         } else {
@@ -74,6 +74,7 @@ class FastingViewModel: ObservableObject {
         elapsedTime = 0.0
         progress = 0.0
         startTime = Date()
+        updateTimer()
     
         fastingState = fastingState == .fasting ? .notStarted : .fasting
     }
@@ -93,7 +94,7 @@ class FastingViewModel: ObservableObject {
                 isFastingComplete = true
             
             }
-            
+                updateTimer()
 
         }
         elapsedTime += 1

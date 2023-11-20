@@ -9,7 +9,7 @@ import SwiftUI
 import Charts
 
 struct CompletedFastsView: View {
-    @ObservedObject var viewModel: FastingViewModel
+    @StateObject var viewModel: FastingViewModel
     
     var body: some View {
         NavigationView {
@@ -28,10 +28,9 @@ struct CompletedFastsView: View {
                         Text("No Fasts Completed")
                     }
 
-
                 ForEach(viewModel.completedFasts) { fast in
                     HStack {
-                        Text("\(fast.duration.rawValue) hours")
+                        Text("\(fast.duration.rawValue)")
                         Spacer()
                         Button(action : {
                             viewModel.completedFasts.removeAll { $0.id == fast.id}
