@@ -17,6 +17,8 @@ class WeightViewModel: ObservableObject {
         guard let weight = Double(weightInput) else { return }
         
         let currentDate = Date()
+        
+        
         let weightRecord = WeightRecord(date: currentDate, weight: weight)
         weightRecords.append(weightRecord)
         

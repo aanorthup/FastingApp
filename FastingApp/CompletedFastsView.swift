@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Charts
 
 struct CompletedFastsView: View {
     @ObservedObject var viewModel: FastingViewModel
@@ -22,10 +23,27 @@ struct CompletedFastsView: View {
                         }) {
                             Image(systemName: "xmark.circle.fill")
                                 .foregroundColor(.red)
+                            
+                            
                         }
                     }
                 }
-            } .navigationTitle("Completed Fasts")
+            }
+            VStack {
+                if !viewModel.completedFasts.isEmpty {
+                    Chart{
+                        ForEach(viewModel.completedFasts, id: \.id) { item in
+                            BarMark(
+                                x: .value("Date", item.startDate),
+                                y: .value("Duration", item.duration.duration)
+                            )
+                        }
+                    }
+                }else {
+                    Text("No Fasts Completed")
+                }
+            }
+            .navigationTitle("Completed Fasts")
         }
     }
 }

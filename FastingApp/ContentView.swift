@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var viewModel = FastingViewModel()
     @ObservedObject var weightViewModel = WeightViewModel()
-    
+        
     
     var body: some View {
         NavigationView {
@@ -20,7 +20,7 @@ struct ContentView: View {
                         Image(systemName: "hourglass")
                         Text("Fast")
                     }
-                WeightView()
+                WeightView(viewModel: weightViewModel)
                     .tabItem() {
                         Image(systemName:"list.clipboard" )
                     Text("Record Weight")
@@ -30,11 +30,7 @@ struct ContentView: View {
                         Image(systemName: "checkmark.seal.fill")
                         Text("Completed Fasts")
                     }
-                DataView(weightViewModel: weightViewModel, fastingViewModel: viewModel)
-                    .tabItem() {
-                        Image(systemName: "chart.line.downtrend.xyaxis")
-                        Text("Progress")
-                    }
+               
                 
                
                 

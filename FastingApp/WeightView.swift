@@ -9,7 +9,7 @@ import SwiftUI
 import Charts
 
 struct WeightView: View {
-    @ObservedObject var viewModel = WeightViewModel()
+    @ObservedObject var viewModel: WeightViewModel
     
     var body: some View {
         VStack {
@@ -21,16 +21,22 @@ struct WeightView: View {
                 viewModel.addWeight()
             }
             .padding()
+            Text("Weight History")
             
-           
+            if !viewModel.weightRecords.isEmpty {
+                Chart{
+                    ForEach(viewModel.weightRecords, id: \.id) { item in
+                        LineMark(
+                            x: .value("Date", item.date),
+                            y: .value("Weight", item.weight)
+                        )
+                    }
+                }
+            }else {
+                Text("No Weight Records")
+                }
         } .padding()
         }
     }
 
 
-struct WeightView_Previews: PreviewProvider {
-    static var previews: some View {
-        WeightView()
-            .previewDevice("iPhone 14")
-    }
-}
