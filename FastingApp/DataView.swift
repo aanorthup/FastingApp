@@ -9,7 +9,8 @@ import SwiftUI
 import Charts
 
 struct DataView: View {
-    @ObservedObject var weightViewModel = WeightViewModel
+    @ObservedObject var weightViewModel: WeightViewModel
+    @ObservedObject var fastingViewModel: FastingViewModel
     
     
     
@@ -29,11 +30,20 @@ struct DataView: View {
             Text("No Weights Records")
             }
         
+        if !fastingViewModel.completedFasts.isEmpty {
+            Chart{
+                ForEach(fastingViewModel.completedFasts, id: \.id) { item in
+                    BarMark(
+                        x: .value("Date", item.startDate),
+                        y: .value("Weight", item.duration.duration)
+                    )
+                }
+            }
+        }else {
+            Text("No Fasts Completed")
+            }
+        
     }
 }
 
-struct DataView_Previews: PreviewProvider {
-    static var previews: some View {
-        DataView()
-    }
-}
+
