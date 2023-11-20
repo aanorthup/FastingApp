@@ -13,41 +13,45 @@ struct CompletedFastsView: View {
     
     var body: some View {
         NavigationView {
-            List {
+            VStack(spacing: 16) {
                 
                 if !viewModel.completedFasts.isEmpty {
-                        Chart{
-                            ForEach(viewModel.completedFasts, id: \.id) { item in
-                                BarMark(
-                                    x: .value("Date", item.startDate),
-                                    y: .value("Duration", item.duration.duration)
-                                )
-                            }
+                    Chart{
+                        ForEach(viewModel.completedFasts, id: \.id) { item in
+                            BarMark(
+                                x: .value("Date", item.startDate),
+                                y: .value("Duration", item.duration.duration)
+                            )
                         }
-                    }else {
-                        Text("No Fasts Completed")
                     }
-
-                ForEach(viewModel.completedFasts) { fast in
-                    HStack {
-                        Text("\(fast.duration.rawValue)")
-                        Spacer()
-                        Button(action : {
-                            viewModel.completedFasts.removeAll { $0.id == fast.id}
-                        }) {
-                            Image(systemName: "xmark.circle.fill")
-                                .foregroundColor(.red)
-                            
-                            
+                    .padding(.bottom, 16)
+                }else {
+                    Text("No Fasts Completed")
+                }
+                
+                List {
+                    
+                    ForEach(viewModel.completedFasts) { fast in
+                        HStack {
+                            Text("\(fast.duration.rawValue)")
+                            Spacer()
+                            Button(action : {
+                                viewModel.completedFasts.removeAll { $0.id == fast.id}
+                            }) {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundColor(.red)
+                                
+                                
+                            }
                         }
                     }
                 }
-            }
                 
             }
             .navigationTitle("Completed Fasts")
         }
-    
+        
+    }
 }
 
 

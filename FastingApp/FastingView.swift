@@ -100,19 +100,24 @@ struct FastingView: View {
                 //MARK: Times and Button
                 
                 HStack(spacing: 40) {
-                    
-                    VStack {
-                        Text(viewModel.fastingState == .notStarted ? "Start" : "Started")
-                        Text(viewModel.startTime, format: .dateTime.weekday().hour().minute().second())
-                            .fontWeight(.bold)
-                        
-                        
-                        Text(viewModel.fastingState == .notStarted ? "End" : "Ends")
-                        Text(viewModel.endTime, format: .dateTime.weekday().hour().minute().second())
-                            .fontWeight(.bold)
-                        
-                        
-                        
+                    if viewModel.fastingState == .fasting {
+                        VStack {
+                            Text(viewModel.fastingState == .notStarted ? "Start" : "Started")
+                            Text(viewModel.startTime, format: .dateTime.weekday().hour().minute().second())
+                                .fontWeight(.bold)
+                            
+                            
+                            Text(viewModel.fastingState == .notStarted ? "End" : "Ends")
+                            Text(viewModel.endTime, format: .dateTime.weekday().hour().minute().second())
+                                .fontWeight(.bold)
+                            
+                        }
+                    } else {
+                        Text(" ")
+                        Text(" ")
+                        Text(" ")
+                        Text(" ")
+                        Text(" ")
                     }
                 }
                     Button {

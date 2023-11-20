@@ -24,12 +24,7 @@ class FastingViewModel: ObservableObject {
     }
     @Published var fastingDuration: FastingDuration = .hours1
     @Published var fastDone: Bool = false
-    @Published var startTime: Date {
-        didSet {
-                endTime = startTime.addingTimeInterval(selectedDuration.duration)
-        }
-        
-    }
+    @Published var startTime: Date
     @Published var isFastingComplete: Bool = false
     @Published var endTime: Date
     @Published var extraTime: Date?
@@ -47,36 +42,24 @@ class FastingViewModel: ObservableObject {
     
     init() {
         let calendar = Calendar.current
-        
         let components = DateComponents(hour: 20)
-        let scheduledTime = calendar.nextDate(after: .now, matching: components, matchingPolicy: .nextTime)!
-        
-        
+        guard let scheduledTime = calendar.nextDate(after: .now, matching: components, matchingPolicy: .nextTime) else {
+            fatalError("Unable to calculate scheduled time.")
+        }
         startTime = scheduledTime
         endTime = scheduledTime.addingTimeInterval(FastingDuration.hours1.duration)
     }
     
     func toggleFasting() {
-        if fastDone {
-           // let additionalTime = calculateExtraTime()
-            
-            //endTime = endTime.addingTimeInterval(additionalTime)
-            
-           // extraTime = nil
-            isFastingComplete = true
-            
-        } else {
-            isFastingComplete = false
-           
-    
-        }
-        
+        isFastingComplete = fastDone
         elapsedTime = 0.0
         progress = 0.0
         startTime = Date()
         updateTimer()
     
         fastingState = fastingState == .fasting ? .notStarted : .fasting
+        
+        
     }
     
     func track() {
@@ -90,7 +73,6 @@ class FastingViewModel: ObservableObject {
             if !isFastingComplete {
                 let completedFast = FastingModel(startDate: startTime, duration: fastingDuration, endDate: endTime)
                 completedFasts.append(completedFast)
-                
                 isFastingComplete = true
             
             }
@@ -103,12 +85,12 @@ class FastingViewModel: ObservableObject {
     }
     
     
-    func calculateExtraTime() -> TimeInterval {
-        guard let startTime = extraTime else {
-            return 0
-        }
-        return Date().timeIntervalSince(startTime)
-    }
+   // func calculateExtraTime() -> TimeInterval {
+   //     guard let startTime = extraTime else {
+ //           return 0
+   //     }
+ //       return Date().timeIntervalSince(startTime)
+//}
     
     func updateTimer() {
         endTime = startTime.addingTimeInterval(fastingDuration.duration)
