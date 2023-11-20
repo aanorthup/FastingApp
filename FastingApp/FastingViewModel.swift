@@ -40,6 +40,10 @@ class FastingViewModel: ObservableObject {
         return fastingDuration.duration
     }
     
+    var feedingTime: Double {
+        return 24 - fastingDuration.duration
+    }
+    
     
     init() {
         let calendar = Calendar.current
@@ -54,21 +58,22 @@ class FastingViewModel: ObservableObject {
     
     func toggleFasting() {
         if fastDone {
-            //let additionalTime = calculateExtraTime()
+            let additionalTime = calculateExtraTime()
             
-            //endTime = endTime.addingTimeInterval(additionalTime)
+            endTime = endTime.addingTimeInterval(additionalTime)
             
             extraTime = nil
-            elapsedTime = 0.0
-            progress = 0.0
             isFastingComplete = true
             
         } else {
-            startTime = Date()
-            elapsedTime = 0.0
-            progress = 0.0
             isFastingComplete = false
+           
+    
         }
+        
+        elapsedTime = 0.0
+        progress = 0.0
+        startTime = Date()
     
         fastingState = fastingState == .fasting ? .notStarted : .fasting
     }
@@ -105,12 +110,8 @@ class FastingViewModel: ObservableObject {
     }
     
     func updateTimer() {
+        endTime = startTime.addingTimeInterval(fastingDuration.duration)
         
-        if fastingState == .fasting {
-            endTime = startTime.addingTimeInterval(fastingDuration.duration)
-        } else {
-            endTime = startTime.addingTimeInterval(fastingDuration.duration)
-        }
     }
     
     //var timer: Timer?

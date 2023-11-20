@@ -14,6 +14,21 @@ struct CompletedFastsView: View {
     var body: some View {
         NavigationView {
             List {
+                
+                if !viewModel.completedFasts.isEmpty {
+                        Chart{
+                            ForEach(viewModel.completedFasts, id: \.id) { item in
+                                BarMark(
+                                    x: .value("Date", item.startDate),
+                                    y: .value("Duration", item.duration.duration)
+                                )
+                            }
+                        }
+                    }else {
+                        Text("No Fasts Completed")
+                    }
+
+
                 ForEach(viewModel.completedFasts) { fast in
                     HStack {
                         Text("\(fast.duration.rawValue) hours")
@@ -30,19 +45,6 @@ struct CompletedFastsView: View {
                 }
             }
                 
-            Text("OUtside")
-            if !viewModel.completedFasts.isEmpty {
-                    Chart{
-                        ForEach(viewModel.completedFasts, id: \.id) { item in
-                            BarMark(
-                                x: .value("Date", item.startDate),
-                                y: .value("Duration", item.duration.duration)
-                            )
-                        }
-                    }
-                }else {
-                    Text("No Fasts Completed")
-                }
             }
             .navigationTitle("Completed Fasts")
         }
