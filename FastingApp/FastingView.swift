@@ -62,7 +62,7 @@ struct FastingView: View {
                                 
                                 Text("Upcoming Fast")
                                 
-                                Text("\(viewModel.fastingDuration.duration.formatted()) hours")
+                                Text("\(viewModel.fastingDuration.duration.formatted())")
                                     .font(.title)
                                     .fontWeight(.bold)
                             }
@@ -78,7 +78,7 @@ struct FastingView: View {
                                 if !viewModel.fastDone {
                                     Text("Remaining Time: ")
                                 } else {
-                                    Text("Extra Time")
+                                    Text("Extra Time: ")
                                 }
                                 
                                 Text(viewModel.endTime, style: .timer)
