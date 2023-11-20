@@ -16,23 +16,17 @@ enum FastingState {
 class FastingViewModel: ObservableObject {
     @Published var completedFasts: [FastingModel] = []
     @Published var fastingState: FastingState = .notStarted
-    @Published var selectedDuration: FastingDuration? {
+    @Published var selectedDuration: FastingDuration = .hours1 {
         didSet {
-            if let selectedDuration = selectedDuration {
-                fastingDuration = selectedDuration
-                updateTimer()
-            }
+            fastingDuration = selectedDuration
+            updateTimer()
         }
     }
     @Published var fastingDuration: FastingDuration = .hours1
     @Published var fastDone: Bool = false
     @Published var startTime: Date {
         didSet {
-            if fastingState == .fasting {
-                endTime = startTime.addingTimeInterval(fastingTime)
-            } else {
-                endTime = startTime.addingTimeInterval(feedingTime)
-            }
+                endTime = startTime.addingTimeInterval(selectedDuration.duration)
         }
         
     }
@@ -77,15 +71,17 @@ class FastingViewModel: ObservableObject {
     
     func track() {
         guard fastingState != .notStarted else { return }
-        if endTime >= Date() {
+        
+        if endTime >= Date()  {
             fastDone = false
-        } else {
+        } else if endTime < Date() {
             fastDone = true
-                
+            
             let completedFast = FastingModel(startDate: startTime, duration: fastingDuration, endDate: endTime)
+            if !completedFasts.contains(completedFast) {
                 completedFasts.append(completedFast)
             }
-        
+        }
         elapsedTime += 1
         progress = (elapsedTime / fastingTime * 100).rounded() / 100
 
@@ -100,6 +96,7 @@ class FastingViewModel: ObservableObject {
     }
     
     func updateTimer() {
+        
         if fastingState == .fasting {
             endTime = startTime.addingTimeInterval(fastingDuration.duration)
         } else {

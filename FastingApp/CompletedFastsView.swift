@@ -15,11 +15,10 @@ struct CompletedFastsView: View {
             List {
                 ForEach(viewModel.completedFasts) { fast in
                     HStack {
-                        Text("\(fast.duration.duration) hours")
+                        Text("\(fast.duration.rawValue) hours")
                         Spacer()
-                        Text("Additional Time: \(viewModel.calculateExtraTime(), specifier: "%.0f") seconds")
                         Button(action : {
-                            viewModel.completedFasts.removeAll { $0.id == fast.id }
+                            viewModel.completedFasts.removeAll { $0.id == fast.id}
                         }) {
                             Image(systemName: "xmark.circle.fill")
                                 .foregroundColor(.red)

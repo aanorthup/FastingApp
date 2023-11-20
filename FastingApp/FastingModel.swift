@@ -26,11 +26,17 @@ enum FastingDuration: String, CaseIterable {
     }
 }
 
-struct FastingModel: Identifiable {
-    var id = UUID()
-    var startDate: Date
-    var duration: FastingDuration
-    var endDate: Date
+struct FastingModel: Identifiable, Equatable {
+    let id = UUID()
+    let startDate: Date
+    let duration: FastingDuration
+    let endDate: Date
+    
+    static func == (lhs: FastingModel, rhs: FastingModel) -> Bool {
+        return lhs.startDate == rhs.startDate &&
+            lhs.duration == rhs.duration &&
+            lhs.endDate == rhs.endDate
+    }
     
 }
 
