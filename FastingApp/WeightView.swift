@@ -35,7 +35,11 @@ struct WeightView: View {
             }else {
                 Text("No Weight Records")
                 }
+                
         } .padding()
+            .onAppear {
+                viewModel.loadInitialData()
+            }
         }
     }
 

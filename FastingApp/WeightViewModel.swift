@@ -21,9 +21,33 @@ class WeightViewModel: ObservableObject {
         
         let weightRecord = WeightRecord(date: currentDate, weight: weight)
         weightRecords.append(weightRecord)
+        saveWeightRecords()
         
         weightInput = ""
         
+    }
+    
+    func saveWeightRecords() {
+        do {
+            let encodedData = try JSONEncoder().encode(weightRecords)
+            UserDefaults.standard.set(encodedData, forKey: "weightRecords")
+        } catch {
+            print("Couldn't encode weight records.")
+        }
+    }
+    
+    func loadWeightRecords() {
+        if let data = UserDefaults.standard.data(forKey: "weightRecords") {
+            do {
+                weightRecords = try JSONDecoder().decode([WeightRecord].self, from: data)
+            } catch {
+                print("Couldn't decode weight records.")
+            }
+        }
+    }
+    
+    func loadInitialData() {
+        loadWeightRecords()
     }
     
 }

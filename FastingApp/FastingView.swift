@@ -132,7 +132,9 @@ struct FastingView: View {
                         
                     }
                     
-                    
+                    .onAppear {
+                        viewModel.loadInitialData()
+                    }
                     
                 }
             }

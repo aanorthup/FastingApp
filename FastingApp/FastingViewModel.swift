@@ -74,6 +74,7 @@ class FastingViewModel: ObservableObject {
             if !isFastingComplete {
                 let completedFast = FastingModel(startDate: startTime, duration: fastingDuration, endDate: endTime)
                 completedFasts.append(completedFast)
+                saveCompletedFasts()
                 isFastingComplete = true
             }
             
@@ -86,6 +87,28 @@ class FastingViewModel: ObservableObject {
 
     }
     
+    func saveCompletedFasts() {
+        do {
+            let encodedData = try JSONEncoder().encode(completedFasts)
+            UserDefaults.standard.set(encodedData, forKey: "completedFasts")
+        } catch {
+            print("Error encoding completed fasts.")
+        }
+    }
+    
+    func loadCompletedFasts() {
+        if let data = UserDefaults.standard.data(forKey: "completedFasts") {
+            do {
+                completedFasts = try JSONDecoder().decode([FastingModel].self, from: data)
+            } catch {
+                print("Error decoding completed fasts.")
+            }
+        }
+    }
+    
+    func loadInitialData() {
+        loadCompletedFasts()
+    }
     
    // func calculateExtraTime() -> TimeInterval {
    //     guard let startTime = extraTime else {

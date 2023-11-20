@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum FastingDuration: String, CaseIterable {
+enum FastingDuration: String, CaseIterable, Codable {
     case hours1 = "15 Seconds"
     case hours2 = "25 Seconds"
     case hours8 = "8 Hours"
@@ -28,7 +28,7 @@ enum FastingDuration: String, CaseIterable {
     }
 }
 
-struct FastingModel: Identifiable, Equatable {
+struct FastingModel: Identifiable, Equatable, Codable {
     let id = UUID()
     let startDate: Date
     let duration: FastingDuration
@@ -39,6 +39,28 @@ struct FastingModel: Identifiable, Equatable {
             lhs.duration == rhs.duration &&
             lhs.endDate == rhs.endDate
     }
+    
+    init(startDate: Date, duration: FastingDuration, endDate: Date) {
+        self.startDate = startDate
+        self.duration = duration
+        self.endDate = endDate
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case startDate
+        case duration
+        case endDate
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        startDate = try container.decode(Date.self, forKey: .startDate)
+        duration = try container.decode(FastingDuration.self, forKey: .duration)
+        endDate = try container.decode(Date.self, forKey: .endDate)
+    }
+    
+
     
 }
 
