@@ -24,7 +24,7 @@ struct CompletedFastsView: View {
                             )
                         }
                     }
-                    .padding(.bottom, 16)
+                    .padding(16)
                 }else {
                     Text("No Fasts Completed")
                 }
