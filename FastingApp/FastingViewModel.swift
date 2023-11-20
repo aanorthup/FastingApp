@@ -62,8 +62,11 @@ class FastingViewModel: ObservableObject {
             
             extraTime = nil
             elapsedTime = 0.0
+            progress = 0.0
         } else {
             startTime = Date()
+            elapsedTime = 0.0
+            progress = 0.0
         }
     
         fastingState = fastingState == .fasting ? .notStarted : .fasting
@@ -78,9 +81,8 @@ class FastingViewModel: ObservableObject {
             fastDone = true
             
             let completedFast = FastingModel(startDate: startTime, duration: fastingDuration, endDate: endTime)
-            if !completedFasts.contains(completedFast) {
-                completedFasts.append(completedFast)
-            }
+            completedFasts.append(completedFast)
+            
         }
         elapsedTime += 1
         progress = (elapsedTime / fastingTime * 100).rounded() / 100
